@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="el">
+<head>
+  <meta charset="utf-8">
+  <title>Επεξεργασία Υλικού</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script>
+    function toggleCustomDescription(select) {
+      var input = document.getElementById("custom_description");
+      if (select.value === "default") {
+        input.style.display = "block";
+      } else {
+        input.style.display = "none";
+      }
+    }
+
+    window.onload = function () {
+      var selected = document.querySelector('select[name="type"]').value;
+      toggleCustomDescription({ value: selected });
+    };
+  </script>
+</head>
+<body class="bg-light">
+  <div class="container mt-5">
+    <h2 class="mb-4">✏️ Επεξεργασία Υλικού</h2>
+    <form method="post" class="card p-4 shadow-sm bg-white">
+      <div class="mb-3">
+        <label class="form-label">Τύπος Υλικού</label>
+        <select class="form-select" name="type" required onchange="toggleCustomDescription(this)">
+          <option value="pc" {{ 'selected' if item.type == 'pc' }}>Σταθμός Εργασίας</option>
+          <option value="monitor" {{ 'selected' if item.type == 'monitor' }}>Οθόνη</option>
+          <option value="printer" {{ 'selected' if item.type == 'printer' }}>Εκτυπωτής</option>
+          <option value="switch" {{ 'selected' if item.type == 'switch' }}>Δικτυακό Switch</option>
+          <option value="hub" {{ 'selected' if item.type == 'hub' }}>Δικτυακό Hub</option>
+          <option value="router" {{ 'selected' if item.type == 'router' }}>Router</option>
+          <option value="phone" {{ 'selected' if item.type == 'phone' }}>Τηλεφωνική Συσκευή/Κέντρο</option>
+          <option value="server" {{ 'selected' if item.type == 'server' }}>Server</option>
+          <option value="cabling" {{ 'selected' if item.type == 'cabling' }}>Καλωδίωση</option>
+          <option value="ups" {{ 'selected' if item.type == 'ups' }}>UPS</option>
+          <option value="camera" {{ 'selected' if item.type == 'camera' }}>IP Κάμερα</option>
+          <option value="access_point" {{ 'selected' if item.type == 'access_point' }}>Access Point</option>
+          <option value="laptop" {{ 'selected' if item.type == 'laptop' }}>Laptop</option>
+          <option value="default" {{ 'selected' if item.type == 'default' }}>Άλλο / Γενική χρήση</option>
+        </select>
+      </div>
+
+      <div id="custom_description" class="mb-3" style="display:none;">
+        <label for="custom_type_detail" class="form-label">Περιγραφή Άλλου Τύπου:</label>
+        <input type="text"
+               class="form-control"
+               name="custom_type_detail"
+               id="custom_type_detail"
+               maxlength="30"
+               pattern="[A-Za-zΑ-Ωα-ω0-9\s]+"
+               title="Μόνο γράμματα και αριθμοί, έως 30 χαρακτήρες"
+               value="{{ item.custom_type_detail or '' }}"
+               placeholder="π.χ. HDMI καλώδιο">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Μοντέλο</label>
+        <input type="text" class="form-control" name="model" value="{{ item.model }}">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Serial Number</label>
+        <input type="text" class="form-control" name="serial" value="{{ item.serial }}">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Τοποθεσία</label>
+        <input type="text" class="form-control" name="location" value="{{ item.location }}">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Κατάσταση</label>
+        <select class="form-select" name="status">
+          <option value="Ενεργό" {{ 'selected' if item.status == 'Ενεργό' }}>Ενεργό</option>
+          <option value="Αποθηκευμένο" {{ 'selected' if item.status == 'Αποθηκευμένο' }}>Αποθηκευμένο</option>
+          <option value="Κατεστραμμένο" {{ 'selected' if item.status == 'Κατεστραμμένο' }}>Κατεστραμμένο</option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn btn-primary">💾 Αποθήκευση</button>
+      <a href="{{ url_for('index') }}" class="btn btn-secondary">↩️ Πίσω</a>
+    </form>
+  </div>
+
+  <div class="text-center mt-4">
+    <a href="{{ url_for('home') }}" class="btn btn-outline-secondary">🏠 Επιστροφή στην Αρχική Σελίδα</a>
+  </div>
+</body>
+</html>

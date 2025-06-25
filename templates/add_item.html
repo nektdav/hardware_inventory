@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="el">
+<head>
+  <meta charset="utf-8">
+  <title>Προσθήκη Υλικού</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<script>
+function toggleCustomDescription(select) {
+    var input = document.getElementById("custom_description");
+    if (select.value === "default") {
+        input.style.display = "block";
+    } else {
+        input.style.display = "none";
+    }
+}
+</script>
+
+</head>
+<body class="bg-light">
+  <div class="container mt-5">
+    <h2 class="mb-4">➕ Καταχώρηση Υλικού</h2>
+    <form method="post" class="card p-4 shadow-sm bg-white">
+      <div class="mb-3">
+        <label class="form-label">Τύπος Υλικού</label>
+        <select class="form-select" name="type" required onchange="toggleCustomDescription(this)">
+<option value="pc">Σταθμός Εργασίας</option>
+<option value="monitor">Οθόνη</option>
+<option value="printer">Εκτυπωτής</option>
+<option value="switch">Δικτυακό Switch</option>
+<option value="hub">Δικτυακό Hub</option>
+<option value="router">Router</option>
+<option value="phone">Τηλεφωνική Συσκευή/Κέντρο</option>
+<option value="server">Server</option>
+<option value="cabling">Καλωδίωση (Ethernet, τηλεφωνικά κλπ)</option>
+<option value="ups">UPS (Αδιάλειπτη Παροχή Ρεύματος)</option>
+<option value="camera">IP Κάμερα / CCTV</option>
+<option value="access_point">Access Point (Wi-Fi)</option>
+<option value="laptop">Φορητός Υπολογιστής</option>
+<option value="default">Άλλο / Γενική χρήση</option>
+</select>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Μοντέλο</label>
+        <input type="text" class="form-control" name="model">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Serial Number</label>
+        <input type="text" class="form-control" name="serial">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Τοποθεσία</label>
+        <input type="text" class="form-control" name="location">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Κατάσταση</label>
+        <select class="form-select" name="status">
+          <option value="Ενεργό">Ενεργό</option>
+          <option value="Αποθηκευμένο">Αποθηκευμένο</option>
+          <option value="Κατεστραμμένο">Κατεστραμμένο</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary">💾 Αποθήκευση</button>
+      <a href="{{ url_for('index') }}" class="btn btn-secondary">↩️ Πίσω</a>
+    
+
+	<div id="custom_description" style="display:none;" class="mt-3">
+	<label for="custom_type_detail" class="form-label">Περιγραφή Άλλου Τύπου: [έως 30 χαρακτήρες]</label>
+	<input type="text"
+         class="form-control"
+         name="custom_type_detail"
+         id="custom_type_detail"
+         maxlength="30"
+         pattern="[A-Za-zΑ-Ωα-ω0-9\s]+" 
+         title="Μόνο γράμματα και αριθμοί, έως 30 χαρακτήρες"
+         placeholder="π.χ. HDMI καλώδιο">
+	</div>
+
+
+
+
+</form>
+  </div>
+
+<div class="text-center mt-4">
+  <a href="{{ url_for('home') }}" class="btn btn-outline-secondary">🏠 Επιστροφή στην Αρχική Σελίδα</a>
+</div>
+
+</body>
+</html>
